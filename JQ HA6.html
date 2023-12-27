@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script>
+        function myCreateFunction() {
+          var table = document.getElementById("myTable");
+          var row = table.insertRow(0);
+          var cell1 = row.insertCell(0);
+          var cell2 = row.insertCell(1);
+          cell1.innerHTML = "ADD NAME";
+          cell2.innerHTML = "ENTER ROLL NO.";
+        }
+        
+        function myDeleteFunction() {
+          document.getElementById("myTable").deleteRow(0);
+        }
+        </script>
+        
+<style>
+    body{
+        background-color:pink;
+    }
+table, td {
+  border: 2px solid black;
+  background-color: rgb(228, 187, 172);
+}
+td:hover{
+    background-color: bisque;
+}
+button:hover{
+    background-color: aquamarine;
+}
+button{
+  border-radius: 20%;
+}
+</style>
+</head>
+<body>
+
+<center><h1><u>Student Data Section</u></h1>
+
+<table id="myTable">
+  <tr>
+    <td>Shubhangini</td>
+    <td>01</td>
+  </tr>
+  <tr>
+    <td>Christain Gray</td>
+    <td>02</td>
+  </tr>
+  <tr>
+    <td>Anestesia Steele</td>
+    <td>03</td>
+  </tr>
+</table>
+<br>
+
+<button onclick="myCreateFunction()">Create row</button>
+<button onclick="myDeleteFunction()">Delete row</button>
+
+</center>
+
+</body>
+</html>

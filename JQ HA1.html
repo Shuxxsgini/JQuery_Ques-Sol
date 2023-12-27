@@ -1,0 +1,32 @@
+<html>
+    <head>
+        <script src="http://code.jquery.com/jquery-1.4.2.min.js"></script>
+        <script type="text/javascript">
+
+            $(document).ready(function() {
+                $("#selected").mouseenter(function(){
+                    alert( $("p").length );
+                });
+                
+            });
+
+        </script>
+        <style>
+            body{
+                background-color: powderblue;
+            }
+        </style>
+    </head>
+    <body>
+       <div id="selected">
+        <p>Red</p>
+        <p>White</p>
+        <p>Green</p>
+        <p>Black</p>
+        <p>blue</p>
+        <p>Orange</p>
+        <p>pink</p>
+        <p>Orange</p>
+    </div>
+    </body>
+</html>

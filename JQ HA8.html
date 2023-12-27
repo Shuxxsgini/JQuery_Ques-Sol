@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Q8</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color:powderblue;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+        }
+
+        #jobList {
+            background-color: #f0dcdc;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+            padding: 20px;
+            width: 400px;
+            text-align: left;
+        }
+
+        .job-item {
+            margin-bottom: 15px;
+            padding: 10px;
+            border: 1px solid #ecd7d7;
+            border-radius: 6px;
+        }
+
+        label {
+            display: block;
+            margin-top: 10px;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        select, input {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 15px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            box-sizing: border-box;
+        }
+
+
+        select {
+            appearance: none;
+            background-image: url('data:image/svg+xml;utf8,<svg fill="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>');
+            background-position: right 10px top 50%;
+            background-repeat: no-repeat;
+            background-size: 16px;
+        }
+    </style>
+</head>
+<body>
+
+<div id="jobList">
+    <h2>Job Listings</h2>
+
+    <label for="category">Filter by Category:</label>
+    <select id="category">
+        <option value="all">All Categories</option>
+        <option value="developer">Developer</option>
+        <option value="designer">Designer</option>
+        <option value="manager">Manager</option>
+        <option value="analyst">Analyst</option>
+        <option value="support">Support</option>
+    </select>
+
+    <label for="search">Search Job:</label>
+    <input type="text" id="search" placeholder="Search by title">
+
+    <div id="jobs">
+
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<script>
+
+    var jobsData = [
+        { title: 'Web Developer', category: 'developer' },
+        { title: 'UI/UX Designer', category: 'designer' },
+        { title: 'Project Manager', category: 'manager' },
+        { title: 'Data Analyst', category: 'analyst' },
+        { title: 'Customer Support Specialist', category: 'support' },
+        { title: 'Software Engineer', category: 'developer' },
+        { title: 'Graphic Designer', category: 'designer' },
+        { title: 'IT Manager', category: 'manager' },
+        { title: 'Business Analyst', category: 'analyst' },
+        { title: 'Technical Support Specialist', category: 'support' },
+        { title: 'Full Stack Developer', category: 'developer' },
+        { title: 'Product Designer', category: 'designer' },
+        { title: 'Project Lead', category: 'manager' },
+        { title: 'Data Scientist', category: 'analyst' },
+        { title: 'Customer Service Representative', category: 'support' },
+    ];
+
+
+    function filterJobs(category, searchInput) {
+        $('#jobs').empty();
+
+        var filteredJobs = jobsData.filter(function (job) {
+            return (category === 'all' || job.category === category) &&
+                   (searchInput === '' || job.title.toLowerCase().includes(searchInput.toLowerCase()));
+        });
+
+        if (filteredJobs.length === 0) {
+            $('#jobs').append('<p>No jobs found</p>');
+        } else {
+
+            var displayJobs = filteredJobs.slice(0, 5);
+
+            $.each(displayJobs, function (index, job) {
+                var jobItem = '<div class="job-item"><strong>' + job.title + '</strong> - ' + job.category + '</div>';
+                $('#jobs').append(jobItem);
+            });
+        }
+    }
+
+
+    filterJobs('all', '');
+
+
+    $('#category').change(function () {
+        var selectedCategory = $(this).val();
+        var searchInput = $('#search').val();
+        filterJobs(selectedCategory, searchInput);
+    });
+
+
+    $('#search').on('input', function () {
+        var selectedCategory = $('#category').val();
+        var searchInput = $(this).val();
+        filterJobs(selectedCategory, searchInput);
+    });
+</script>
+
+</body>
+</html>

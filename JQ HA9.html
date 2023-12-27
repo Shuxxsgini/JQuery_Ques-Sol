@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Q9</title>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script>
+        $(document).ready(function () {
+
+            var userScore = localStorage.getItem('userScore') || 0;
+            var computerScore = localStorage.getItem('computerScore') || 0;
+
+            updateScore();
+
+            $('.choice').on('click', function () {
+                var userChoice = $(this).data('choice');
+                playGame(userChoice);
+            });
+
+            function playGame(userChoice) {
+                var choices = ['rock', 'paper', 'scissors'];
+                var computerChoice = choices[Math.floor(Math.random() * 3)];
+
+                var result = determineWinner(userChoice, computerChoice);
+
+                $('#result').text(`You chose ${userChoice}. Computer chose ${computerChoice}. ${result}`);
+
+                if (result.includes('Win')) {
+                    userScore++;
+                } else if (result.includes('Lose')) {
+                    computerScore++;
+                }
+
+                localStorage.setItem('userScore', userScore);
+                localStorage.setItem('computerScore', computerScore);
+
+                updateScore();
+            }
+            function determineWinner(userChoice, computerChoice) {
+                if (userChoice === computerChoice) {
+                    return 'It\'s a tie!';
+                }
+
+                if ((userChoice === 'rock' && computerChoice === 'scissors') ||
+                    (userChoice === 'paper' && computerChoice === 'rock') ||
+                    (userChoice === 'scissors' && computerChoice === 'paper')) {
+                    return 'You Win!';
+                } else {
+                    return 'You Lose!';
+                }
+            }
+
+            function updateScore() {
+                $('#user-score').text(userScore);
+                $('#computer-score').text(computerScore);
+            }
+        });
+    </script>
+
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color:powderblue;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        #game-container {
+            background-color: #f1d3d3;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        #result {
+            font-size: 1.5em;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        #buttons {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 20px;
+        }
+
+        #score {
+            font-size: 1.2em;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+<div id="game-container">
+    <h1>Rock, Paper, Scissors</h1>
+    <p id="result">Choose your move:</p>
+
+    <div id="buttons">
+        <button class="choice" data-choice="rock">Rock</button>
+        <button class="choice" data-choice="paper">Paper</button>
+        <button class="choice" data-choice="scissors">Scissors</button>
+    </div>
+
+    <p id="score">Score: <span id="user-score">0</span> - <span id="computer-score">0</span></p>
+</div>
+
+
+
+</body>
+</html>
